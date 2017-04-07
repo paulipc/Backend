@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MobileBackend.ViewModels.HoursPerWorkAssignmentModel>
+
+@{
+    ViewBag.Title = "HoursPerWorkAssignment";
+}
+
+<h2>Hours Per Work Assignment</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkAssignmentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkAssignmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalHours)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkAssignmentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkAssignmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalHours)
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>Total entries: @Model.Count().</p>
+
+<p>&nbsp;</p>
+<p>Alkaen (pvm)</p>
+@Html.TextBox("dateFrom")
+<p>Päättyen (pvm)</p>
+@Html.TextBox("dateTo")
+<p>&nbsp;</p>
+
+<form action="">
+    <input type="button" id="myButton" value="Download CSV" />
+</form>
+
+<script>
+    //get a reference to the element
+    var myBtn = document.getElementById('myButton');
+
+    //add event listener
+    myBtn.addEventListener('click', function (event) {
+        var start = $("#dateFrom").val();
+        var end = $("#dateTo").val();
+    	//alert('tässä kohtaa...');
+        var url = "/Reports/HoursPerWorkAssignmentAsExcel3?start=" + start + "&stop=" + end;
+        location.href = url;
+    });
+</script>
